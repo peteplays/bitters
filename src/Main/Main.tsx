@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { AppBar, Tabs, Tab, Typography, Box, Container, makeStyles, createStyles, Hidden } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 
-import data from '../data';
+import { mainData } from '../data';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
@@ -44,7 +44,8 @@ const Main = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [activeTab, setActiveTab] = useState(0);
+  const currentRoute = mainData.map(m => m.path).indexOf(history.location.pathname);
+  const [activeTab, setActiveTab] = useState(currentRoute);
 
   const buildAppBar = () =>
     <AppBar position='static'>
@@ -53,7 +54,7 @@ const Main = () => {
         onChange={ (_, val) => setActiveTab(val) }
         centered
       >
-        { data.map(({ name, path }, i) =>
+        { mainData.map(({ name, path }, i) =>
           <Tab
             key={ i }
             label={ name }
@@ -77,7 +78,7 @@ const Main = () => {
         </Hidden>
 
         <SwipeableViews index={activeTab} onChangeIndex={(e) => setActiveTab(e)}>
-          {data.map(({ content }, i) =>
+          {mainData.map(({ content }, i) =>
             <TabPanel value={i} index={i} key={i}>
               {content}
             </TabPanel>

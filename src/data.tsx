@@ -1,10 +1,16 @@
-interface IData {
+import { ReactElement } from 'react';
+
+import InstagramIcon from '@material-ui/icons/Instagram';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import LanguageIcon from '@material-ui/icons/Language';
+
+interface IMainData {
   name: string;
   path: string;
   content: string;
 }
 
-const data: IData[] = [
+export const mainData: IMainData[] = [
   {
     name: `The Bitters`,
     path: '/',
@@ -22,4 +28,26 @@ const data: IData[] = [
   },
 ];
 
-export default data;
+interface IFooterData {
+  link: string;
+  display: string;
+  icon: ReactElement;
+}
+
+export const footerData: IFooterData[] = [
+  {
+    link: 'mailto:fake@email.com',
+    display: 'Email TBD',
+    icon: <MailOutlineIcon />,
+  },
+  {
+    link: 'https://www.instagram.com/',
+    display: 'Instagram TBD',
+    icon: <InstagramIcon />,
+  },
+  {
+    link: 'https://www.peteplays.com/',
+    display: 'Web Site TBD',
+    icon: <LanguageIcon />,
+  }
+];
