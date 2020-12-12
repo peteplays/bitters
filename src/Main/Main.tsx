@@ -77,9 +77,17 @@ const Main = () => {
           { buildAppBar() }
         </Hidden>
 
-        <SwipeableViews index={activeTab} onChangeIndex={(e) => setActiveTab(e)}>
+        <SwipeableViews
+          index={ activeTab }
+          onChangeIndex={ (e) => setActiveTab(e) }
+          // `transition...` - temp fix for animation not triggered on first index change
+          // https://github.com/oliviertassinari/react-swipeable-views/issues/599
+          containerStyle={{
+            transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s'
+          }}
+        >
           {mainData.map(({ content }, i) =>
-            <TabPanel value={i} index={i} key={i}>
+            <TabPanel value={activeTab} index={i} key={i}>
               {content}
             </TabPanel>
           )}
