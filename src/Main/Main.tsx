@@ -16,12 +16,8 @@ interface TabPanelProps {
 // const useStyles = makeStyles((theme: Theme) =>
 const useStyles = makeStyles(() =>
   createStyles({
-    root: { },
     content: {
-      minHeight:'calc(100vh - 450px)',
-    },
-    footer: {
-      marginTop: 'auto'
+      minHeight:'calc(100vh - 447px)',
     },
   }));
 
@@ -65,7 +61,7 @@ const Main = () => {
     </AppBar>;
 
   return (
-    <div className={classes.root}>
+    <>
       <Header />
 
       <Hidden smUp>
@@ -94,10 +90,8 @@ const Main = () => {
         </SwipeableViews>
       </Container>
 
-      <div className={classes.footer}>
-        <Footer />
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 }
 
