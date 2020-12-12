@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AppBar, Tabs, Tab, Typography, Box, Container, Theme, makeStyles, createStyles, Hidden } from '@material-ui/core';
+import { AppBar, Tabs, Tab, Typography, Box, Container, makeStyles, createStyles, Hidden } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 
 import data from '../data';

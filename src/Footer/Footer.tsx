@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Theme, makeStyles, createStyles, Grid, Link, IconButton } from '@material-ui/core';
+import { Theme, makeStyles, createStyles, Grid, IconButton } from '@material-ui/core';
 
 import InstagramIcon from '@material-ui/icons/Instagram';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
