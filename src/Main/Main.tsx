@@ -20,6 +20,7 @@ interface TabPanelProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
+      position: 'relative', // fix fab to be constrained inside content width
       minHeight:'calc(100vh - 447px)',
     },
     fab: {
@@ -47,16 +48,12 @@ const Main = () => {
   const history = useHistory();
 
   const paths = mainData.map(m => m.path)
-  const currentRoute = paths.indexOf(history.location.pathname);
-  const [activeTab, setActiveTab] = useState(currentRoute);
+  const currentPath = paths.indexOf(history.location.pathname);
+  const [activeTab, setActiveTab] = useState(currentPath);
   const [buyDialogOpen, setBuyDialogOpen] = useState(false);
 
   useEffect(() => {
-    history.listen((newLocation, action) => {
-      if (action === 'POP') {
-        setActiveTab(paths.indexOf(newLocation.pathname))
-      }
-    });
+    history.listen((newLocation) => setActiveTab(paths.indexOf(newLocation.pathname)));
   }, [history, paths]);
 
   const handleRouteChange = (selectTab: number) => {
@@ -113,16 +110,16 @@ const Main = () => {
             </TabPanel>
           )}
         </SwipeableViews>
-      </Container>
 
-      <Fab
-        color='secondary'
-        aria-label='shopping cart'
-        className={ classes.fab }
-        onClick={ () => setBuyDialogOpen(true) }
-      >
-        <ShoppingCartIcon/>
-      </Fab>
+        <Fab
+          color='secondary'
+          aria-label='shopping cart'
+          className={ classes.fab }
+          onClick={ () => setBuyDialogOpen(true) }
+        >
+          <ShoppingCartIcon/>
+        </Fab>
+      </Container>
 
       <Footer />
 
