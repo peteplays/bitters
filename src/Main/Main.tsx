@@ -43,6 +43,11 @@ const Main = () => {
   const currentRoute = mainData.map(m => m.path).indexOf(history.location.pathname);
   const [activeTab, setActiveTab] = useState(currentRoute);
 
+  const handleSwipe = (selectTab: number) => {
+    history.push(mainData.map(m => m.path)[selectTab]);
+    setActiveTab(selectTab);
+  }
+
   const buildAppBar = () =>
     <AppBar position='static'>
       <Tabs
@@ -75,7 +80,7 @@ const Main = () => {
 
         <SwipeableViews
           index={ activeTab }
-          onChangeIndex={ (e) => setActiveTab(e) }
+          onChangeIndex={handleSwipe}
           // `transition...` - temp fix for animation not triggered on first index change
           // https://github.com/oliviertassinari/react-swipeable-views/issues/599
           containerStyle={{
