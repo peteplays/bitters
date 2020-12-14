@@ -1,11 +1,15 @@
 import React, { ReactNode, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AppBar, Tabs, Tab, Typography, Box, Container, makeStyles, createStyles, Hidden } from '@material-ui/core';
+import { AppBar, Tabs, Tab, Typography, Box, Container, makeStyles, createStyles, Theme, Hidden, Fab } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
+
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import { mainData } from '../data';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Buy from './Buy/Buy';
+import BuyDialog from './BuyDialog/BuyDialog';
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -13,28 +17,30 @@ interface TabPanelProps {
   value: number;
 }
 
-// const useStyles = makeStyles((theme: Theme) =>
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
       minHeight:'calc(100vh - 447px)',
     },
+    fab: {
+      position: 'fixed',
+      bottom: theme.spacing(3),
+      right: theme.spacing(2),
+    },
   }));
 
-const TabPanel = ({ children, value, index }: TabPanelProps) => {
-  return (
-    <div
-      role='tabpanel'
-      hidden={value !== index}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+const TabPanel = ({ children, value, index }: TabPanelProps) => (
+  <div
+    role='tabpanel'
+    hidden={value !== index}
+  >
+    {value === index && (
+      <Box p={3}>
+        {children}
+      </Box>
+    )}
+  </div>
+);
 
 const Main = () => {
   const classes = useStyles();
@@ -42,8 +48,9 @@ const Main = () => {
 
   const currentRoute = mainData.map(m => m.path).indexOf(history.location.pathname);
   const [activeTab, setActiveTab] = useState(currentRoute);
+  const [buyDialogOpen, setBuyDialogOpen] = useState(false);
 
-  const handleSwipe = (selectTab: number) => {
+  const handleRouteChange = (selectTab: number) => {
     history.push(mainData.map(m => m.path)[selectTab]);
     setActiveTab(selectTab);
   }
@@ -80,22 +87,37 @@ const Main = () => {
 
         <SwipeableViews
           index={ activeTab }
-          onChangeIndex={handleSwipe}
+          onChangeIndex={handleRouteChange}
           // `transition...` - temp fix for animation not triggered on first index change
           // https://github.com/oliviertassinari/react-swipeable-views/issues/599
           containerStyle={{
             transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s'
           }}
         >
-          {mainData.map(({ content }, i) =>
+          { mainData.map(({ name, content }, i) =>
             <TabPanel value={activeTab} index={i} key={i}>
-              {content}
+              <Typography>{content}</Typography>
+
+              { name === 'The Bitters' &&
+                <Buy setBuyDialogOpen={ setBuyDialogOpen } />
+              }
             </TabPanel>
           )}
         </SwipeableViews>
       </Container>
 
+      <Fab
+        color='secondary'
+        aria-label='shopping cart'
+        className={ classes.fab }
+        onClick={ () => setBuyDialogOpen(true) }
+      >
+        <ShoppingCartIcon/>
+      </Fab>
+
       <Footer />
+
+      <BuyDialog buyDialogOpen={ buyDialogOpen } setBuyDialogOpen={ setBuyDialogOpen } />
     </>
   );
 }

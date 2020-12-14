@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
     footer: {
       height: 100,
       backgroundColor: theme.palette.primary.main,
+      borderTop: '2px solid rgba(0, 0, 0, 0.5)'
     }
   }));
 

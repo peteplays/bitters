@@ -12,9 +12,9 @@ interface IMainData {
 
 export const mainData: IMainData[] = [
   {
-    name: `The Bitters`,
+    name: 'The Bitters',
     path: '/',
-    content:'111 Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis dolor vel laboriosam odio quod at eius porro est vitae ducimus! Possimus dignissimos corporis, nostrum consequatur repudiandae vero provident illum maxime?'
+    content: '111 Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis dolor vel laboriosam odio quod at eius porro est vitae ducimus! Possimus dignissimos corporis, nostrum consequatur repudiandae vero provident illum maxime?'
   },
   {
     name: 'Our Story',
