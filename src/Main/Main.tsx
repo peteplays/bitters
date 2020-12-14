@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppBar, Tabs, Tab, Typography, Box, Container, makeStyles, createStyles, Theme, Hidden, Fab } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
@@ -46,12 +46,21 @@ const Main = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const currentRoute = mainData.map(m => m.path).indexOf(history.location.pathname);
+  const paths = mainData.map(m => m.path)
+  const currentRoute = paths.indexOf(history.location.pathname);
   const [activeTab, setActiveTab] = useState(currentRoute);
   const [buyDialogOpen, setBuyDialogOpen] = useState(false);
 
+  useEffect(() => {
+    history.listen((newLocation, action) => {
+      if (action === 'POP') {
+        setActiveTab(paths.indexOf(newLocation.pathname))
+      }
+    });
+  }, [history, paths]);
+
   const handleRouteChange = (selectTab: number) => {
-    history.push(mainData.map(m => m.path)[selectTab]);
+    history.push(paths[selectTab]);
     setActiveTab(selectTab);
   }
 
