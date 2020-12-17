@@ -11,8 +11,9 @@ const Buy = ({setBuyDialogOpen}: {setBuyDialogOpen: CallableFunction}) => {
     >
       <h2>Martin's Extra Special Bitters</h2>
       <Button
-        variant='outlined'
-        onClick={() => setBuyDialogOpen(true)}
+        variant='contained'
+        color='secondary'
+        onClick={ () => setBuyDialogOpen(true) }
       >
         Buying options
       </Button>
